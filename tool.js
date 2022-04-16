@@ -1,5 +1,14 @@
 export class Calculate{
     constructor(){}
+ 
+    static cubicInterPolate(a,b,c,d,x){
+        let P = (d.y-c.y)-(a.y-b.y);
+        let Q = (a.y-b.y)-P;
+        let R = c.y - a.y;
+        let S = b.y;
+
+        return P*x*x*x + Q*x*x + R*x + S;
+    }
 
     static vectorProduct(x1,y1,z1,x2,y2,z2){
         let d = x1*x2 + y1*y2 + z1*z2; 

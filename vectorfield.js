@@ -1,6 +1,6 @@
 import {Calculate} from "./tool.js"
 
-export class Perlin{
+export class field{
     constructor(canvas,scale,stageWidth,stageHeight){
         this.ctx = canvas.getContext('2d');
         this.scale = scale;
@@ -60,16 +60,72 @@ export class Perlin{
 
 }
 
-export class Perlindot{
-    constructor(x,y,gradient){
-        this.x = x;
-        this.y = y;
-        this.gradient = gradient;
+
+export class GridGroup{
+    constructor(stageWidth,stageHeight,pointScaleX,pointScaleY,cellScale){
+        this.pointArry = [];
+        this.gridArry = [];
+        this.stageWidth = stageWidth;
+        this.stageHeight = stageHeight;
+        this.pointScaleX = pointScaleX;
+        this.pointScaleY = pointScaleY;
+        this.cellScale = cellScale;
+        this.genGrid(this.stageWidth,this.stageHeight);
+    }
+
+    genGrid(stageWidth,stageHeight){
+        this.stageWidth = stageWidth;
+        this.stageHeight = stageHeight;
+        
+        for(let i=0;i<=this.pointScaleX;i++){
+            for(let j=0;j<=this.pointScaleY;j++){
+                let gradient = Calculate.getRandomArbitrary(0,1);
+                this.pointArry[i][j] = new GridPoint(i,j,i*(this.stageWidth/this.pointScaleX),j*(this.stageHeight/this.pointScaleY),gradient);
+            }
+        }
+
+        for(let i=0;i<this.pointScale;i++){
+            for(let j=0;j<Math.floor(this.stageHeight/this.pointScale);j++){
+                this.gridArry[i][j] = new GridUnit(this.pointArry[i][j],this.pointArry[i+1][j],this.pointArry[i][j+1],this.pointArry[i+1][j+1],this.cellScale);
+            }
+        }
+
     }
 }
 
-export class PerlinGroup{
-    constructor(){
-        this.arry = [];
+export class GridUnit{
+    constructor(point00,point01,point10,point11,cellScale){
+        this.point00 = point00;
+        this.point01 = point01;
+        this.point10 = point10;
+        this.point11 = point11;
+        this.cellScale = cellScale;
+        this.cellArry = [];
+        this.genCell();
+    }
+
+    genCell(){
+        for(let i=0;i<this.cellScale;i++){
+            for(let j=0;j<this.cellScale;j++){
+                this.cellArry[i][j] =new CellUnit((this.point11.x-this.point00.x)/this.cellScale*i,(this.point11.y-this.point00.y)/this.cellScale*y,gradient) ;
+            }
+        }
+    }
+
+}
+
+export class CellUnit{
+    constructor(x0,y0,gradient){
+
+    }
+}
+
+export class GridPoint{
+    constructor(numx,numy,x,y,gradient){
+        this.numx = numx;
+        this.numy = numy;
+        this.x = x;
+        this.y = y;
+        this.gradient = gradient;
     }
 }
