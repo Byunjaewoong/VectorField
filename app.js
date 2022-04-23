@@ -22,13 +22,20 @@ class App {
 
         window.addEventListener("click", (e) => {
             //mode 변경
-            if(this.mode == 0){
-                this.mode += 1;
-                console.log(this.mode);
-            }
-            else{
+            this.mode += 1;
+            switch(this.mode){
+                case 0:
+
+                break;
+                case 1:
+                    
+                break;
+                case 2:
+
+                break;
+                default:
                 this.mode = 0;
-                console.log(this.mode);
+                break;
             }
             
         });
@@ -45,6 +52,21 @@ class App {
     animate() {
         window.requestAnimationFrame(this.animate.bind(this));
         this.ctx.clearRect(0,0,this.stageWidth,this.stageHeight);
+
+        switch(this.mode){
+            case 0:
+                
+            break;
+            case 1:
+                
+            break;
+            case 2:
+
+            break;
+            default:
+            this.mode = 0;
+            break;
+        }
     }    
 }
 
